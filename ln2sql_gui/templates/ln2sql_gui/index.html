@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Natural language Processor</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'ln2sql_gui/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'ln2sql_gui/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'ln2sql_gui/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'ln2sql_gui/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'ln2sql_gui/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'ln2sql_gui/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'ln2sql_gui/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'ln2sql_gui/css/main.css' %}">
+<!--===============================================================================================-->
+
+</head>
+<body>
+
+	<div class="bg-contact100" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-contact100">
+			<div class="wrap-contact100">
+				<div class="contact100-pic js-tilt" data-tilt>
+                    {% load staticfiles %}
+					<img src="{% static 'ln2sql_gui/images/images.png' %}" alt="IMG">
+					<img src="{% static 'ln2sql_gui/images/images2.jpg' %}" alt="IMG">
+				</div>
+
+				<div>
+                    <form method="post" action="{% url 'basic:upload' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+					<span class="contact100-form-title">
+						Natural Langauge Processor
+					</span>
+
+                    <P>Specify SQL DUMP FILE</P>
+                        {% if error_message %}
+                        <p>{{ error_message }}</p>
+                        {% endif %}
+                    {% if success_message %}
+                        <p>{{ success_message }}</p>
+                        {% endif %}
+					<div class="wrap-input100 validate-input" data-validate = "You need to Upload your SQL Dump">
+						<input class="input100" id="file" type="file" name="myfile" placeholder="File" required>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-file" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "English-like query is required">
+						<textarea id="message" class="input100" name="message" placeholder="Enter Your SQL Like Query in English" required></textarea>
+						<span class="focus-input100"></span>
+					</div>
+
+
+
+					<div class="container-contact100-form-btn">
+						<button class="contact100-form-btn" id="query">
+							Convert
+						</button>
+					</div>
+                    </form>
+                     <div class="wrap-input100 validate-input"><BR>
+                         <p><STRONG>RESULT IN SQL </STRONG></p>
+						<textarea class="input100" disabled="">{{ result }}</textarea>
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+			</div>
+			  
+			  <!-- Modal -->
+			
+		</div>
+	</div>
+
+
+{% load staticfiles %}
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ln2sql_gui/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ln2sql_gui/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'ln2sql_gui/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<!-- <script src="vendor/select2/select2.min.js"></script> -->
+<!--===============================================================================================-->
+	<script src="{% static 'ln2sql_gui/vendor/tilt/tilt.jquery.min.js' %}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'ln2sql_gui/js/main.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html>

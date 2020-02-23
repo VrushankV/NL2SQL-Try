@@ -1,0 +1,45 @@
+{% extends "ln2sql_gui/layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Simple Natural language to SQL converter</h1>
+<p>How it workd</p>
+    <form method="post" action="{% url 'basic:upload' %}" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {% if error_message %}
+            <p class="label-info">{{ error_message }}</p>
+            {% endif%}
+            {% if success_message %}
+            <p class="label-info">{{ success_message }}</p>
+            {% endif %}
+        <div class="form-group">
+            <input name="string" class="form-control" placeholder="Enter value to be converted here"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="file" name="myfile"/>
+             {% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+  {% endif %}
+        </div>
+        </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Convert</button>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>SQL STATEMENT </h2>
+        <p>
+            {{ result }}
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
