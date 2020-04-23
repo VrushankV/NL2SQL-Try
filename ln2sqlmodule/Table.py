@@ -56,7 +56,7 @@ class Table:
 
     def add_primary_key(self, primary_key):
         if settings.DEBUG:
-            print('%s : primary key added:%s').format(self.name, primary_key)
+            print('%s : primary key added:%s'.format(self.name, primary_key))
         self.primary_keys.append(primary_key)
 
     def get_number_of_foreign_keys(self):
@@ -67,7 +67,7 @@ class Table:
 
     def add_foreign_key(self, col, ref_table, ref_col):
         if settings.DEBUG:
-            print('foreign key added : %s.%s->%s.%s').format(self.name, col, ref_table, ref_col)
+            print('foreign key added : %s.%s->%s.%s'.format(self.name, col, ref_table, ref_col))
         self.foreign_keys.append({'col':col,'ref_table':ref_table,'ref_col':ref_col})
 
 

@@ -417,6 +417,8 @@ class WhereParser(Thread):
                 column = self.get_column_name_with_alias_table(columns_of_where[i], table_of_from)
                 operation_type = self.predict_operation_type(previous, current)
 
+                print(len(self.columns_of_values_of_where) >= len(columns_of_where))
+                print(self.columns_of_values_of_where,"====",i)
                 if len(self.columns_of_values_of_where) >= len(columns_of_where):
                     value = self.columns_of_values_of_where[i]
                 else:
@@ -549,6 +551,8 @@ class Parser:
         self.order_by_keywords = config.get_order_by_keywords()
         self.group_by_keywords = config.get_group_by_keywords()
         self.negation_keywords = config.get_negation_keywords()
+        #VV
+        config.print_me()
 
     def set_thesaurus(self, thesaurus):
         self.thesaurus_object = thesaurus
@@ -648,8 +652,7 @@ class Parser:
             for assigners in assignment_list:
                 irext = irext.replace(assigners, " res@3#>> ")
                 # print "ire : ",irext        
-            # print 'irext:',irext
-
+           
 
             # replace all spaces from values to <_> for proper value assignment in SQL
             # eg. (where name is 'abc def') -> (where name is abc<_>def)

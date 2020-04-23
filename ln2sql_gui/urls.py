@@ -4,5 +4,6 @@ from . import views
 app_name='basic'
 urlpatterns=[
     url(r'^$',views.index,name='index'),
-url(r'^upload/$',views.simple_upload,name='upload')
+url(r'^upload/$',views.simple_upload,name='upload')#,
+    #url(r'^speechtotext/$',views.speech_to_text,name='speechtotext')
 ]

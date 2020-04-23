@@ -37,13 +37,22 @@
 				</div>
 
 				<div>
-                    <form method="post" action="{% url 'basic:upload' %}" enctype="multipart/form-data">
-                        {% csrf_token %}
+					
+                    
 					<span class="contact100-form-title">
 						Natural Langauge Processor
 					</span>
 
-                    <P>Specify SQL DUMP FILE</P>
+					<form method="post" action="{% url 'basic:index' %}">
+						{% csrf_token %}
+						<P>Press Here to Start Recording ...</P>
+						<input type="hidden" name="record">
+						<button class="btn btn-light">Record</button>
+					</form>
+					
+					<form method="post" action="{% url 'basic:upload' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <P>Specify SQL DUMP FILE after RECORDING ...</P>
                         {% if error_message %}
                         <p>{{ error_message }}</p>
                         {% endif %}
@@ -51,15 +60,21 @@
                         <p>{{ success_message }}</p>
                         {% endif %}
 					<div class="wrap-input100 validate-input" data-validate = "You need to Upload your SQL Dump">
-						<input class="input100" id="file" type="file" name="myfile" placeholder="File" required>
+						<input class="input100" id="file" type="file" name="myfile" placeholder="File">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-file" aria-hidden="true"></i>
 						</span>
 					</div>
 
+					<div class="wrap-input100 validate-input" data-validate = "Record your speech">
+	
+						<br/>
+	
+					</div>
+					
 					<div class="wrap-input100 validate-input" data-validate = "English-like query is required">
-						<textarea id="message" class="input100" name="message" placeholder="Enter Your SQL Like Query in English" required></textarea>
+						<textarea id="message" class="input100" name="message" value="udhbhdb" placeholder="Enter Your SQL Like Query in English" required>{{data}}</textarea>
 						<span class="focus-input100"></span>
 					</div>
 
@@ -70,6 +85,7 @@
 							Convert
 						</button>
 					</div>
+					
                     </form>
                      <div class="wrap-input100 validate-input"><BR>
                          <p><STRONG>RESULT IN SQL </STRONG></p>
