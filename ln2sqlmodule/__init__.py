@@ -19,7 +19,7 @@ def getSql(query, sqlDump, outputFile=None):
             '-j', outputFile]
 
     sql = __main__(args)
-
+    print(sql)
     return str(sql)
 
 

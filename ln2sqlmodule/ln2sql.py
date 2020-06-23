@@ -43,7 +43,7 @@ class ln2sql:
             parser.set_thesaurus(thesaurus)
 
         queries = parser.parse_sentence(input_sentence)
-
+        print("xxx" , queries)
         if json_output_path is not None:
             self.remove_json(json_output_path)
             for query in queries:

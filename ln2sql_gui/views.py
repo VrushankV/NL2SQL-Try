@@ -6,29 +6,19 @@ from django.contrib import messages
 import os
 import speech_recognition as sr
 from ln2sqlmodule.ParsingException import ParsingException
+from django.db import connection
 
 DATA_FILE_TYPES = ['sql', 'SQL',]
 BASE_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Create your views here.
 def index(request):
-
-    return render(request,'ln2sql_gui/index.html',
-           {
-               'error_message':'',
-               'success_message':''
-           })
-
-
-def simple_upload(request):
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
+    if request.method == 'POST':
         data = request.POST.get('record')
-  
 
         # get audio from the microphone
         r = sr.Recognizer()
         with sr.Microphone() as source:
-            print("Speak:")
+            # print("Speak:")
             audio = r.listen(source)
 
         try:
@@ -37,9 +27,24 @@ def simple_upload(request):
             output = "Could not understand audio"
         except sr.RequestError as e:
             output = "Could not request results; {0}".format(e)
-        data =output
+        data = output
+        _str = data
+        
+        return render(request, 'ln2sql_gui/index.html', {'data': data})
+    return render(request,'ln2sql_gui/index.html',
+           {
+               'error_message':'',
+               'success_message':''
+           })
 
-        _str = audio
+def simple_upload(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        _str = request.POST['message']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+
+
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         # file_type = filename.url.split('.')[-1]
@@ -51,14 +56,25 @@ def simple_upload(request):
         #         'result': ''
         #     })
         filename="/database/" + str(filename)
+        print("===============")
         try:
             result = converter.getSql(_str,filename)
+            print("Helloooooooooooo")
+            print(result)
+            cursor = connection.cursor()
+            cursor.execute(result)
+            result_set = cursor.fetchall()
+            print(result_set)
+            cursor = [i[0] for i in cursor.description]
             return render(request, 'ln2sql_gui/index.html', {
                 'error_message': '',
                 'success_message': 'Successfully processed',
-                'result':result
+                'result':result,
+                'result_set':result_set,
+                'cursor':cursor
             })
-        except ParsingException:
+        except ParsingException as e:
+            print(e)
             return render(request, 'ln2sql_gui/index.html', {
                 'error_message': '',
                 'success_message': 'uploaded',

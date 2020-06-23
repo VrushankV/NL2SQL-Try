@@ -582,7 +582,7 @@ class Parser:
         input_word_list = input_for_finding_value.split()
 
         # print "asd -> ",input_word_list    
-
+        print("XXX", input_word_list)
 
         # ===    clause extractor
 
@@ -593,7 +593,7 @@ class Parser:
         start_phrase = ''
         med_phrase = ''
         end_phrase = ''
-        
+        print(input_word_list)
         for i in range(0, len(input_word_list)):
             if input_word_list[i] in self.database_dico:
                 if number_of_table_temp == 0:
@@ -610,7 +610,7 @@ class Parser:
                     if (number_of_table_temp != 0) and (number_of_where_column_temp == 0) and (
                         i == (len(input_word_list) - 1)):
                         med_phrase = input_word_list[len(start_phrase):]
-
+        print("DB D:" ,self.database_dico)
         end_phrase = input_word_list[len(start_phrase) + len(med_phrase):]
         irext = ' '.join(end_phrase)
         # print 'irext :',irext
@@ -799,7 +799,7 @@ class Parser:
                                    columns_of_values_of_where)
         group_by_parser = GroupByParser(group_by_phrase, tables_of_from, self.database_dico)
         order_by_parser = OrderByParser(order_by_phrase, tables_of_from, self.database_dico)
-
+    
         select_parser.start()
         from_parser.start()
         where_parser.start()
